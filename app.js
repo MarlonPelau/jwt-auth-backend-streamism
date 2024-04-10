@@ -2,8 +2,10 @@
 const cors = require("cors");
 const express = require("express");
 const cron = require("node-cron");
+const csrf = require("csurf");
 const cookieParser = require("cookie-parser");
-
+const streamerController = require("./controllers/streamerController");
+const platformsController = require("./controllers/platformsController");
 const authController = require("./controllers/authController");
 
 // CONFIGURATION
@@ -20,18 +22,28 @@ cron.schedule("*/5 * * * *", () => {
 // MIDDLEWARE change origin to your frontend netlify address for deployment
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:3000", credentials: true,
     // origin: "https://main--jwt-auth-10-3.netlify.app/",
   })
 );
 app.use(express.json());
 app.use(cookieParser());
+const csrfProtection = csrf({ cookie: true })
 
+app.use(csrfProtection)
+
+app.use((req, res, next) => {
+  res.cookie('XSRF-TOKEN', req.csrfToken())
+  next()
+})
+
+app.use("/api/streamers", streamerController)
+app.use("/app/platforms", platformsController)
 app.use("/api/auth", authController);
 
 // ROUTES
 app.get("/", (_req, res) => {
-  res.send("Welcome to JWT Auth!");
+  res.send("Welcome to Streamism!");
 });
 
 // 404 PAGE
