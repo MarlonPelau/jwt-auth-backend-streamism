@@ -10,10 +10,10 @@ platforms.use('/:platform_id/reviews', reviewsController)
 
 //Index
 platforms.get('/', async (req,res) => {
-    const getAllPlatforms = await getAllPlatforms();
+    const allPlatforms = await getAllPlatforms();
 
-    if(getAllPlatforms[0]){
-        res.status(200).json(getAllPlatforms);
+    if(allPlatforms[0]){
+        res.status(200).json(allPlatforms);
     } else {
         res.status(500).json({ error: "server error"})
     }
