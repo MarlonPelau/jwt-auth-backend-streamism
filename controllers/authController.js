@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../utils/token");
-const { findUserByUsername, createUser } = require("../queries/users");
+const { findStreamerByUsername, createStreamer } = require("../queries/streamers");
 const { authenticateToken } = require("../middlewares/authenticateToken");
 const auth = express.Router();
 
@@ -10,20 +10,20 @@ auth.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const user = await findUserByUsername(username);
+    const streamer = await findStreamerByUsername(username);
 
-    if (!user) return res.status(401).json({ message: "Invalid credentials" });
+    if (!streamer) return res.status(401).json({ message: "Invalid credentials" });
 
-    const validPassword = await bcrypt.compare(password, user.password_hash);
+    const validPassword = await bcrypt.compare(password, streamer.password_hash);
 
     if (!validPassword)
       return res.status(401).json({ message: "Invalid credentials" });
 
-    const token = generateToken(user);
+    const token = generateToken(streamer);
 
     res.status(200).json({
       message: "Logged in successfully",
-      user,
+      streamer,
       token,
     });
   } catch (error) {
@@ -38,9 +38,9 @@ auth.post("/login", async (req, res) => {
 auth.post("/register", async (req, res) => {
   const { username, password, email } = req.body;
   try {
-    // Check if user already exists
-    const existingUser = await findUserByUsername(username);
-    if (existingUser) {
+    // Check if streamer already exists
+    const existingStreamer = await findStreamerByUsername(username);
+    if (existingStreamer) {
       return res.status(409).json({ message: "Username already taken" });
     }
 
@@ -48,19 +48,19 @@ auth.post("/register", async (req, res) => {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // Create user in the database
-    const newUser = await createUser({
+    // Create streamer in the database
+    const newStreamer = await createStreamer({
       username,
       passwordHash: hashedPassword,
       email,
     });
 
-    const token = generateToken(newUser);
+    const token = generateToken(newStreamer);
 
     if (token) {
       return res.status(201).json({
         message: "User registered successfully",
-        newUser,
+        newStreamer,
         token,
       });
     }
@@ -73,39 +73,39 @@ auth.post("/register", async (req, res) => {
 });
 
 auth.get("/check-auth", authenticateToken, (req, res) => {
-  // Assuming authenticateToken middleware adds user info to req.user
+  // Assuming authenticateToken middleware adds streamer info to req.streamer
 
-  if (req.user) {
-    const { user } = req;
+  if (req.streamer) {
+    const { streamer } = req;
     return res.status(200).json({
       isAuthenticated: true,
-      user: {
-        user,
+      streamer: {
+        streamer,
       },
     });
   } else {
-    // If for some reason, req.user is not set, treat as not authenticated
+    // If for some reason, req.streamer is not set, treat as not authenticated
     res.status(401).json({ isAuthenticated: false });
   }
 });
 
-auth.get("/user", authenticateToken, async (req, res) => {
-  const { user } = req;
+auth.get("/streamer", authenticateToken, async (req, res) => {
+  const { streamer } = req;
   try {
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+    if (!streamer) {
+      return res.status(404).json({ message: "Streamer not found" });
     }
-    if (user)
-      // Return the user information, excluding sensitive data like password
+    if (streamer)
+      // Return the streamer information, excluding sensitive data like password
       res.status(200).json({
-        user: {
-          id: user.id,
-          username: user.username,
-          email: user.email,
+        streamer: {
+          id: streamer.id,
+          username: streamer.username,
+          email: streamer.email,
         },
       });
   } catch (error) {
-    console.error("Error fetching user:", error);
+    console.error("Error fetching streamer:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
