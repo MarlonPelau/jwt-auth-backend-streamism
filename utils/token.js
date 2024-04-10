@@ -1,10 +1,11 @@
 const jwt = require("jsonwebtoken");
+const streamer = require("../controllers/streamerController");
 
-function generateToken(user) {
+function generateToken(streamer) {
   const payload = {
-    id: user.id, // Use user's unique identifier
-    username: user.username,
-    email: user.email,
+    id: streamer.id, // Use streamer's unique identifier
+    username: streamer.username,
+    email: streamer.email,
   };
 
   const secret = process.env.JWT_SECRET;
