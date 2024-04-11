@@ -1,9 +1,9 @@
 -- db/seed.sql
-\c jwt_auth
+\c streamism
 
 INSERT INTO streamers (username, password_hash, email, created_at, updated_at)
 VALUES 
-('demo', '$2b$10$.z68x3792U9LyBwmghfsKexstMO7i0SeNCoDmeJa7bEFPQBnZU3bK', 'demo@example.com', NOW(), NOW());
+('demo', '$2b$10$.z68x3792U9LyBwmghfsKexstMO7i0SeNCoDmeJa7bEFPQBnZU3bK', 'demo@example.com', NOW(), NOW()),
 ('Code418', '$2b$10$sCV/FAzVVD6JtYKpnTiDuO4.POCLg8tKRbo3uSflGJRHKMXsuODnK', 'code418@example.com', NOW(), NOW());
 
 INSERT INTO platforms (name, image, rated, description, mo, link) 
@@ -16,10 +16,10 @@ VALUES
 ('Deezer', 'https://res.cloudinary.com/dgifdj6nx/image/upload/t_Profile/v1712698295/Streamism-Deezer_zkboks.png', 7, 'Personalized recommendations and global accessibility, Deezer has a draw because of their unique capacity to allow mp3 uploads, though with varying limitations based on paid users and non-mobile devices.', '"providing a diverse music streaming experience with a focus on curated playlists"', 'https://www.deezer.com/us/'),
 ('Pandora', 'https://res.cloudinary.com/dgifdj6nx/image/upload/t_Profile/v1712770093/Streamism-Pandora3_hulbmo.png', 5, 'Besides Pandora Music being free, or introducing streamers to new artists and songs through algorithmic recommendations, Pandora does not offer much more than what others already do much better, iso of course. Sometimes being among the first has no relevance in being even close to the best.', '"offering personalized radio stations based on user music preferences"', 'https://www.pandora.com/'),
 ('SiriusXM', 'https://res.cloudinary.com/dgifdj6nx/image/upload/t_Profile/v1712699363/Streamism-SiriusXm_aqqyci.png', 8, 'Wait, you can pause and rewind content? That stands out! In addition to music channels, SiriusXM thrives in the world of live sports, news, and entertainment content through satellite radio subscription services, and offer listeners diverse programming options and exclusive content. Their free 3-month trial period is legit!', '"providing a wide range of curated music channels"', 'https://www.siriusxm.com/'),
-('YouTube Music', 'https://res.cloudinary.com/dgifdj6nx/image/upload/t_Profile/v1712700408/Streamism-YTMusic5_gcfr7i.png', 9, 'YouTube Music offers streamers access to official tracks, search-by-lyrics functionality, remixes, covers, video game soundtracks and music videos alongside personalized playlists and recommendations, at ease.', '"integrating music streaming with the vast content library of YouTube"', 'https://music.youtube.com/'),
+('YouTube Music', 'https://res.cloudinary.com/dgifdj6nx/image/upload/t_Profile/v1712700408/Streamism-YTMusic5_gcfr7i.png', 9, 'YouTube Music offers streamers access to official tracks, search-by-lyrics functionality, remixes, covers, video game soundtracks and music videos alongside personalized playlists and recommendations, at ease.', '"integrating music streaming with the vast content library of YouTube"', 'https://music.youtube.com/');
 
 
-INSERT INTO reviews(streamer_id, platform_id, content, rating, created_at, updated_at)
+INSERT INTO reviews (streamer_id, platform_id, content, rating, created_at, updated_at)
 VALUES
 (1, 3, 'Is 5 the maximum rating for this platform?! Willing to give it more!', 5, '2023-04-01', null),
 (1, 7, 'I gave it a try but onto the next, not my cup of tea.', 2, '2024-04-06', null),

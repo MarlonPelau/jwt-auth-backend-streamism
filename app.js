@@ -2,7 +2,7 @@
 const cors = require("cors");
 const express = require("express");
 const cron = require("node-cron");
-const csrf = require("csurf");
+// const csrf = require("csurf");
 const cookieParser = require("cookie-parser");
 const streamerController = require("./controllers/streamerController");
 const platformsController = require("./controllers/platformsController");
@@ -28,17 +28,17 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
-const csrfProtection = csrf({ cookie: true })
+// const csrfProtection = csrf({ cookie: true })
 
-app.use(csrfProtection)
+// app.use(csrfProtection)
 
-app.use((req, res, next) => {
-  res.cookie('XSRF-TOKEN', req.csrfToken())
-  next()
-})
+// app.use((req, res, next) => {
+//   res.cookie('XSRF-TOKEN', req.csrfToken())
+//   next()
+// })
 
 app.use("/api/streamers", streamerController)
-app.use("/app/platforms", platformsController)
+app.use("/api/platforms", platformsController)
 app.use("/api/auth", authController);
 
 // ROUTES

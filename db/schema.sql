@@ -1,10 +1,10 @@
 -- db/schema.sql
-DROP DATABASE IF EXISTS jwt_auth;
+DROP DATABASE IF EXISTS streamism;
 
-CREATE DATABASE jwt_auth;
+CREATE DATABASE streamism;
 
 
-\c jwt_auth
+\c streamism
 
 DROP TABLE IF EXISTS streamers;
 

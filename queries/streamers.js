@@ -6,10 +6,8 @@ const db = require("../db/dbConfig");
  */
 const findStreamerByUsername = async (username) => {
   try {
-    const query = "SELECT * FROM streamers WHERE username = $1";
 
-    const streamer = await db.oneOrNone(query, username);
-
+    const streamer = await db.oneOrNone(`SELECT * FROM streamers WHERE id = $1`, username);
     return streamer;
   } catch (error) {
     console.error("Error finding streamer by username:", error);
