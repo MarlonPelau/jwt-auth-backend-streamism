@@ -1,7 +1,7 @@
 const platforms = require("../controllers/platformsController.js");
 const db = require("../db/dbConfig.js");
 
-//Grab Streamers And Reviews INDEX
+//Grab Streamers And Reviews from a specific platform INDEX
 const grabStreamerAndReview = async (platform_id) => {
   try {
     const streamerAndReviews = await db.any(

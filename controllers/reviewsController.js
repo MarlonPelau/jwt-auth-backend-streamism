@@ -9,19 +9,19 @@ const {
 } = require("../queries/reviews.js");
 const { getOnePlatform } = require("../queries/platforms.js");
 
-const reviews = express.Router({ mergeParams: true });
+const reviews = express.Router();
 
 const { checkContentRating } = require("../validations/validateReview.js");
 
-//Index Route (api/platforms/2/reviews)
-reviews.get("/", async (req, res) => {
+//Index Route (api/reviews/platforms/2)
+reviews.get("/platforms/:platform_id", async (req, res) => {
   const { platform_id } = req.params;
 
   const allReviews = await grabStreamerAndReview(platform_id);
 
-  const platform = await getOneTeapot(platform_id);
+  const platform = await getOnePlatform(platform_id);
 
-  if (platform.id) {
+  if (platform_id) {
     res.status(200).json({ ...platform, allReviews });
   } else {
     res.status(500).json({ error: "server error" });
@@ -84,4 +84,4 @@ reviews.put("/:review_id", checkContentRating, async (req, res) => {
   }
 });
 
-module.exports = reviews;
+module.exports = reviews
