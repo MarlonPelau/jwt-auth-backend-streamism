@@ -6,7 +6,7 @@ const reviewsController = require('./reviewsController.js')
 
 const { getAllPlatforms, getOnePlatform } = require("../queries/platforms")
 
-// platforms.use('/:platform_id/reviews', reviewsController)
+platforms.use('/:platform_id/reviews', reviewsController)
 
 //Index
 platforms.get('/', async (req,res) => {

@@ -5,7 +5,7 @@ const cron = require("node-cron");
 // const csrf = require("csurf");
 const cookieParser = require("cookie-parser");
 const streamerController = require("./controllers/streamerController");
-const reviewsController = require("./controllers/reviewsController");
+// const reviewsController = require("./controllers/reviewsController");
 const platformsController = require("./controllers/platformsController");
 const authController = require("./controllers/authController");
 
@@ -39,7 +39,7 @@ app.use(cookieParser());
 // })
 
 app.use("/api/streamers", streamerController)
-app.use("/api/reviews", reviewsController)
+// app.use("/api/reviews", reviewsController)
 app.use("/api/platforms", platformsController)
 app.use("/api/auth", authController);
 

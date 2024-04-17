@@ -9,12 +9,12 @@ const {
 } = require("../queries/reviews.js");
 const { getOnePlatform } = require("../queries/platforms.js");
 
-const reviews = express.Router();
+const reviews = express.Router({mergeParams: true});
 
 const { checkContentRating } = require("../validations/validateReview.js");
 
 //Index Route (api/reviews/platforms/2)
-reviews.get("/platforms/:platform_id", async (req, res) => {
+reviews.get("/", async (req, res) => {
   const { platform_id } = req.params;
 
   const allReviews = await grabStreamerAndReview(platform_id);
