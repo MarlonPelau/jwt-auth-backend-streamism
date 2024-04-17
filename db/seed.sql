@@ -4,6 +4,7 @@
 INSERT INTO streamers (username, password_hash, email, created_at, updated_at)
 VALUES 
 ('demo', '$2b$10$.z68x3792U9LyBwmghfsKexstMO7i0SeNCoDmeJa7bEFPQBnZU3bK', 'demo@example.com', NOW(), NOW()),
+-- ('demo', 'happiness', 'demo@example.com', NOW(), NOW()),
 ('Code418', '$2b$10$sCV/FAzVVD6JtYKpnTiDuO4.POCLg8tKRbo3uSflGJRHKMXsuODnK', 'code418@example.com', NOW(), NOW());
 
 INSERT INTO platforms (name, image, rated, description, mo, link) 

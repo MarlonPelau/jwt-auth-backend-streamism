@@ -5,13 +5,15 @@ const db = require("../db/dbConfig");
  * @returns {Promise<object|null>} The streamer object if found, otherwise null.
  */
 const findStreamerByUsername = async (username) => {
+  console.log('username_____', username)
   try {
 
-    const streamer = await db.oneOrNone(`SELECT * FROM streamers WHERE id = $1`, username);
-    return streamer;
+    const streamer = await db.oneOrNone(`SELECT * FROM streamers WHERE username = $1`, username);
+      console.log("Line 12____", streamer) // null
+      return streamer;
   } catch (error) {
-    console.error("Error finding streamer by username:", error);
-    throw error;
+      console.error("Error finding streamer by username:", error);
+      throw error;
   }
 };
 

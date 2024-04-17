@@ -13,7 +13,7 @@ const reviews = express.Router();
 
 const { checkContentRating } = require("../validations/validateReview.js");
 
-//Index Route (api/reviews/platforms/2)
+//Index Route (api/platforms/2/reviews)
 reviews.get("/platforms/:platform_id", async (req, res) => {
   const { platform_id } = req.params;
 
@@ -46,9 +46,9 @@ reviews.get("/:review_id", async (req, res) => {
 //Create Route (api/platforms/2/reviews)
 reviews.post("/", checkContentRating, async (req, res) => {
   const { platform_id } = req.params;
-  // console.log(req.body, platform_id)
+  console.log('checking this line 49 ____', req.body, platform_id)
   const newReview = await createReview({ ...req.body, platform_id });
-
+  console.log('new review', newReview)
   if (newReview.id) {
     res.status(200).json(newReview);
   } else {

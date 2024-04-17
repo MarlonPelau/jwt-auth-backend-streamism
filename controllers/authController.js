@@ -8,13 +8,16 @@ const auth = express.Router();
 // Login route
 auth.post("/login", async (req, res) => {
   const { username, password } = req.body;
+  console.log('Line 11_____', req.body) // this line is OK
 
   try {
     const streamer = await findStreamerByUsername(username);
+    console.log('streamer', streamer) // returns NULL
 
     if (!streamer) return res.status(401).json({ message: "Invalid credentials" });
 
     const validPassword = await bcrypt.compare(password, streamer.password_hash);
+    console.log(validPassword)
 
     if (!validPassword)
       return res.status(401).json({ message: "Invalid credentials" });
@@ -37,9 +40,12 @@ auth.post("/login", async (req, res) => {
 // Register route
 auth.post("/register", async (req, res) => {
   const { username, password, email } = req.body;
+  console.log('username etc......', req.body) // error here
+
   try {
     // Check if streamer already exists
     const existingStreamer = await findStreamerByUsername(username);
+
     if (existingStreamer) {
       return res.status(409).json({ message: "Username already taken" });
     }
@@ -54,6 +60,8 @@ auth.post("/register", async (req, res) => {
       passwordHash: hashedPassword,
       email,
     });
+
+    console.log(newStreamer)
 
     const token = generateToken(newStreamer);
 
