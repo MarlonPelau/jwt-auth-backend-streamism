@@ -13,7 +13,7 @@ const reviews = express.Router();
 
 const { checkContentRating } = require("../validations/validateReview.js");
 
-//Index Route (api/platforms/2/reviews)
+//Index Route (api/reviews/platforms/2)
 reviews.get("/platforms/:platform_id", async (req, res) => {
   const { platform_id } = req.params;
 
