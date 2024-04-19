@@ -24,7 +24,7 @@ const app = express();
 app.use(
   cors({
     // origin: "http://localhost:3000", credentials: true,
-    origin: "https://main--jwt-auth-10-3.netlify.app",
+    origin: "https://streamism.netlify.app", credentials: true,
   })
 );
 app.use(express.json());
